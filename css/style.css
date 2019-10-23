@@ -1,0 +1,38 @@
+* {
+	margin: 0;
+	padding: 0;
+	background: rebeccapurple;
+}
+
+#box {
+	width: 630px;
+	height: 630px;
+	margin: 50px auto;
+}
+
+#box>img {
+	width: 200px;
+	height: 200px;
+}
+
+#fs {
+	width: 200px;
+	height: 150px;
+	background: #ccc;
+	line-height: 150px;
+	font-size:38px;
+	position: fixed;
+	left:8%;
+	top:40%;
+}
+
+#overBox {
+	width: 100%;
+	height: 1000px;
+	background: url(../img/over.jpg) no-repeat 45% center white;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	z-index: 99;
+}

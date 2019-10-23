@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			@keyframes sb{
+				from{width: 200px;height: 200px;border-radius: 0;}
+				50%{width: 800px;height:800px;border-radius:50%;}
+				100%{width: 200px;height: 200px;border-radius: 0;}
+			}
+			.dh{
+				animation: sb 5s linear infinite;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById('box');
+		box.style.width='200px';
+		box.style.height='200px';
+		box.style.background='red';
+		box.style.position='absolute';
+		/*鼠标事件：点击 双击  移入 移出 滚轮 移动 按下 抬起 拖拽（保留）*/
+		box.onclick=function(){
+			this.style.background='green';
+		}
+		
+		box.ondblclick=function(){
+			this.className='dh';
+		}
+		box.onmouseenter=function(){
+			this.innerText='这是移入时文本';
+		}
+		box.onmouseleave=function(){
+			this.innerText='';
+		}
+		document.onmousewheel=function(){
+			console.log('滚了~');
+		}
+		box.onmousemove=function(){
+			console.log('动了~');
+		}
+		
+		box.onmouseup=function(){
+			this.style.margin='0 auto';
+		}
+		
+		/*拖拽：
+		 鼠标按下 鼠标移动   鼠标抬起
+		 原理：
+		 鼠标按下时 获取光标所在位置 运算出偏移量值  鼠标移动时 用光标移动位置和偏移量进行运算 获取元素默认左上角值 进行移动
+		 * */
+		box.onmousedown=function(e){
+			this.className='';
+			console.log(e.clientX,e.clientY);
+			var ex=e.clientX-box.offsetLeft;/*500-450=50*/
+			var ey=e.clientY-box.offsetTop;/*300-250=50*/
+			this.onmousemove=function(e){
+				var bx=e.clientX-ex;/*501-50=451*/
+				var by=e.clientY-ey;
+				this.style.left=bx+'px';
+				this.style.top=by+'px';
+				
+			}
+		}
+		
+		box.onmouseup=function(){
+			this.onmousemove=null;
+		}
+		
+		/*键盘事件：按下 抬起*/
+		document.onkeydown=function(e){
+			console.log(e.keyCode)
+			switch(e.keyCode){
+				/*←*/
+				case 37:
+					numX=box.offsetLeft-5;
+					box.style.left=numX+'px';
+					break;
+				/*→*/	
+				case 39:
+					numX=box.offsetLeft+5;
+					box.style.left=numX+'px';
+					break;	
+				/*↑*/	
+				case 38:
+					numY=box.offsetTop-5;
+					box.style.top=numY+'px';
+					break;
+				/*↓*/
+				case 40:
+					numY=box.offsetTop+5;
+					box.style.top=numY+'px';
+					break;	
+			}
+		}
+	</script>
+</html>

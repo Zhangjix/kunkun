@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 830px;
+				height: 830px;
+				margin: 50px auto;
+				cursor: none;
+			}
+			
+			#box>img {
+				width: 200px;
+				height: 200px;
+			}
+			
+			#fs {
+				width: 200px;
+				height: 150px;
+				background: #ccc;
+				line-height: 150px;
+				font-size: 38px;
+				position: fixed;
+				left: 8%;
+				top: 40%;
+			}
+			
+			#overBox {
+				width: 100%;
+				height: 750px;
+				background: url(../img/over.jpg) no-repeat 45% center white;
+				position: absolute;
+				left: 0;
+				top: 0;
+				display: none;
+				z-index: 99;
+			}
+			
+			#cz {
+				z-index: 3;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="../img/cz.png" id="cz" />
+		<marquee>
+			<h1>打地鼠</h1></marquee>
+		<div id="box">
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+			<img src="../img/cp.jpg" />
+		</div>
+		<div id="overBox">
+
+		</div>
+		<p id='fs'>得分：0</p>
+		<audio id='yx' autoplay="autoplay" src=""></audio>
+		<audio id='bgm' autoplay="autoplay" loop="loop" src="../music/game_music.ogg"></audio>
+	</body>
+	<script>
+		var ele = document.querySelector("body");
+		ele.onmousemove = function() {
+			GetMouse(event);
+		}
+
+		function GetMouse(oEvent, snum) {
+			x = oEvent.clientX;
+			y = oEvent.clientY;
+			document.getElementById('cz').style.left = (parseInt(x)) + 10 + "px";
+			document.getElementById('cz').style.top = y - 100 + "px";
+			var oEvent = oEvent || event;
+		}
+
+		var box = document.getElementById('box');
+		var img = box.children; /*找到盒子内所有子节点 返回一个数组 赋值给变量*/
+		var bigNum = img.length - 1; /*随机数最大值*/
+		var num = 0; /*分数*/
+		var fs = document.getElementById('fs');
+		/*击打音效*/
+		var yx = document.getElementById('yx');
+		/*BGM*/
+		var bgm = document.getElementById('bgm');
+
+		/*结束界面盒子*/
+		var overBox = document.getElementById('overBox');
+
+		setInterval(function() {
+			var x = Math.round(Math.random() * bigNum);
+			img[x].src = '../img/t1.jpg';
+			x = Math.round(Math.random() * bigNum);
+			img[x].src = '../img/cp.jpg';
+			x = Math.round(Math.random() * bigNum);
+			img[x].src = '../img/boom.jpg';
+		}, 500);
+
+		/*循环遍历数组 给每个图片绑定点击事件*/
+		for(var i = 0; i <= bigNum; i++) {
+			img[i].onclick = function() {
+				var src = this.src;
+				console.log(src.charAt(src.length - 5));
+				if(src.charAt(src.length - 5) == '1') {
+					yx.src = '../music/ding.mp3';
+					this.src = '../img/cp.jpg';
+					num += 2;
+					fs.innerText = '得分：' + num;
+				} else {
+					if(src.charAt(src.length - 5) == 'm') {
+						this.src = '../img/cp.jpg';
+						yx.src = '../music/ding.mp3';
+						num -= 2;
+						fs.innerText = '得分：' + num;
+					} else {
+						bgm.pause(); /*BGM暂停*/
+						overBox.style.display = 'block'; /*结束界面显示*/
+						yx.src = '../music/over.mp3'; /*死亡声音播放*/
+						/*点击结束界面 重新开始游戏*/
+						overBox.onclick = function() {
+							location.reload();
+
+						}
+						/*5秒后重新开始游戏*/
+						setTimeout(() => {
+							location.reload();
+						}, 5000)
+					}
+				}
+			}
+		}
+	</script>
+
+</html>

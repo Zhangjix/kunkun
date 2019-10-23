@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<img id='boss' src="../gy/run.gif"/>
+	</body>
+	<script type="text/javascript">
+		/*定时器
+		 常规定时器 ： 不清除 一直执行
+		 一次性定时器 ： 启动一次 就暂停
+		 * */
+		var boss=document.getElementById('boss');
+		var i=1;
+		var time=setInterval(function(){
+			boss.src="../gy/gy"+i+".gif";
+			i++;
+			if(i>5){
+				i=1;
+				clearInterval(time);/*清除常规定时器语句*/
+			}
+			
+		},1000)
+		
+		setTimeout(function(){
+			console.log(' 启动一次 就暂停');
+			
+			/*clearTimeout();清除一次性定时器语句*/
+		},1000)
+	</script>
+</html>

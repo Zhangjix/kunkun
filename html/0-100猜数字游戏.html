@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>0-100猜数字游戏</h1>
+		<input type="text" name="" id="ipt" value="" placeholder="0-100猜数字游戏"/>
+		<button id='btn'>确定</button>
+	</body>
+	<script type="text/javascript">
+		/*思路：
+		 查找元素  找到要操作的节点
+		 定义一个0-100随机数作为答案
+		 点击确定按钮时 
+		 	获取文本框内容
+		 	判断文本框内容与答案的比较
+		 		如果 输入值=答案  提示 ： bingo
+		 		如果 输入值<答案  提示 ：你输入的值太小了
+		 		如果 输入值>答案  提示 ：你输入的值太大了
+		 * */
+		var ipt=document.getElementById('ipt');
+		var btn=document.getElementById('btn');
+		var x=Math.round(Math.random()*100);
+		console.log(x);
+		btn.onclick=function(){
+			var vle=ipt.value;
+			if(vle==x){
+				alert('bingo')
+				/*x=Math.round(Math.random()*100);
+				console.log(x);*/
+				location.reload();/*页面重载*/
+			}else if(vle<x){
+				alert('太小了')
+			}else{
+				alert('太大了')
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#boss{
+				position: absolute;
+			}
+			.zuo{
+				transform: rotateY(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<img id='boss' src="../gy/run.gif"/>
+	</body>
+	<script type="text/javascript">
+		/*人物行为：
+		 人物行走
+		 技能释放
+		 技能冷却
+		 * */
+		
+		var boss = document.getElementById('boss');
+		var falg=true;/*开关变量*/
+		/*键盘事件：按下 抬起*/
+		document.onkeydown=function(e){
+			console.log(e.keyCode)
+			switch(e.keyCode){
+				/*←*/
+				case 37:
+					boss.className='zuo';
+					numX=boss.offsetLeft-5;
+					boss.style.left=numX+'px';
+					break;
+				/*→*/	
+				case 39:
+					boss.className='';
+					numX=boss.offsetLeft+5;
+					boss.style.left=numX+'px';
+					break;	
+				/*↑*/	
+				case 38:
+					numY=boss.offsetTop-5;
+					boss.style.top=numY+'px';
+					break;
+				/*↓*/
+				case 40:
+					numY=boss.offsetTop+5;
+					boss.style.top=numY+'px';
+					break;	
+				/*技能1*/
+				case 97:
+					play('gy',2300,4300)
+					break;
+				/*技能2*/
+				case 98:
+					play('gy1',2000,4000)
+					break;	
+				/*技能3*/
+				case 99:
+					play('gy2',2000,4000)
+					break;	
+			}
+		}
+		
+		/*封装方法*/
+		function play(src,sj,cd){
+			if(falg){
+				falg=false;
+				boss.src='../gy/'+src+'.gif';
+				setTimeout(function(){
+					boss.src='../gy/run.gif';
+				},sj)
+				setTimeout(function(){
+					falg=true;
+				},cd)
+			}
+		}
+	</script>
+</html>

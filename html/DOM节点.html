@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<h1></h1>
+			<span></span>
+		</div>
+		<p class="list"></p>
+		<input type="text" name="" id="" value="" placeholder="1023456"/>
+	</body>
+	<script type="text/javascript">
+		/*查找元素方法：ID CLASS 标签  子节点查找*/
+		/*ID查找 返回唯一值  对象*/
+		var box = document.getElementById('box');
+		console.log(box);
+		
+		/*class查找 返回数组*/
+		var list=document.getElementsByClassName('list');
+		console.log(list);
+		
+		/*标签名查找 返回数组*/
+		var ipt=document.getElementsByTagName('input');
+		console.log(ipt);
+		
+		/*子节点查找  返回数组*/
+		var cd=box.children;
+		console.log(cd);
+		
+		/*节点属性：
+		 内置属性 id class src value name.....
+		 样式属性 margin position padding......
+		 * */
+		box.style.width='300px';
+		box.style.height='300px';
+		box.style.background='red';
+		
+		ipt[0].placeholder='laogong 真帅~';
+	</script>
+</html>
